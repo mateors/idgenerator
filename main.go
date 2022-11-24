@@ -18,78 +18,71 @@ import (
 	"github.com/sony/sonyflake"
 )
 
-func genShortUUID() {
-
-	shortuuid.New()
-	//id := shortuuid.New()
-	//fmt.Printf("github.com/lithammer/shortuuid: %s\n", id)
+func genXid() { //1
+	//id.String()
+	fmt.Printf("github.com/rs/xid:              %s\n", xid.New().String())
 }
 
-func genUUID() {
-	id := guuid.New()
-	id.String()
-	//fmt.Printf("github.com/google/uuid:         %s\n", id.String())
+func genBetterGUID() { //2
+	//betterguid.New()
+	fmt.Printf("github.com/kjk/betterguid:      %s\n", betterguid.New())
 }
 
-func genXid() {
-	id := xid.New()
-	id.String()
-	//fmt.Printf("github.com/rs/xid:              %s\n", id.String())
+func genSid() { //3
+	fmt.Printf("github.com/chilts/sid:          %s\n", sid.Id())
+	//sid.Id()
 }
 
-func genKsuid() {
-	id := ksuid.New()
-	id.String()
-	//fmt.Printf("github.com/segmentio/ksuid:     %s\n", id.String())
+func genUUIDv4() { //4
+	id := uuid.NewV4()
+	//id.String()
+	fmt.Printf("github.com/satori/go.uuid:      %s\n", id)
 }
 
-func genBetterGUID() {
-	betterguid.New()
-	//id := betterguid.New()
-	//fmt.Printf("github.com/kjk/betterguid:      %s\n", id)
+func genUUID() { //5
+	//id.String()
+	fmt.Printf("github.com/google/uuid:         %s\n", guuid.New().String())
 }
 
-func genUlid() {
+func genKsuid() { //6
+	//id.String()
+	fmt.Printf("github.com/segmentio/ksuid:     %s\n", ksuid.New().String())
+}
+
+func genUlid() { //7
 	t := time.Now().UTC()
 	entropy := rand.New(rand.NewSource(t.UnixNano()))
 	id := ulid.MustNew(ulid.Timestamp(t), entropy)
-	id.String()
-	//fmt.Printf("github.com/oklog/ulid:          %s\n", id.String())
+	fmt.Printf("github.com/oklog/ulid:          %s\n", id.String())
+	//id.String()
 }
 
-func genSonyflake() {
+func genShortUUID() { //8
+	//shortuuid.New()
+	fmt.Printf("github.com/lithammer/shortuuid: %s\n", shortuuid.New())
+}
+
+func genSonyflake() { //9
 	flake := sonyflake.NewSonyflake(sonyflake.Settings{})
-	_, err := flake.NextID()
+	id, err := flake.NextID()
 	if err != nil {
 		log.Fatalf("flake.NextID() failed with %s\n", err)
 	}
 	// Note: this is base16, could shorten by encoding as base62 string
-	//fmt.Printf("github.com/sony/sonyflake:      %x\n", id)
-}
-
-func genSid() {
-	//id := sid.Id()
-	//fmt.Printf("github.com/chilts/sid:          %s\n", id)
-	sid.Id()
-}
-
-func genUUIDv4() {
-	id := uuid.NewV4()
-	id.String()
-	//fmt.Printf("github.com/satori/go.uuid:      %s\n", id)
+	fmt.Printf("github.com/sony/sonyflake:      %x\n", id)
 }
 
 func main() {
 
-	genXid()   //
-	genKsuid() //
-	genBetterGUID()
-	genUlid()      //
-	genSonyflake() //
-	genSid()       //
-	genShortUUID() //
-	genUUIDv4()    //
-	genUUID()      //ok
+	genXid()        //1
+	genBetterGUID() //2
+	genSid()        //3
+	genUUIDv4()     //4
+	genUUID()       //5
+	genKsuid()      //6
+	genUlid()       //7
+	genShortUUID()  //8
+	genSonyflake()  //9
 
 	fmt.Println()
 	guid := xid.New()
