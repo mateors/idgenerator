@@ -18,10 +18,6 @@ import (
 	"github.com/sony/sonyflake"
 )
 
-// https://blog.kowalczyk.info/article/JyRZ/generating-good-unique-ids-in-go.html
-// To run:
-// go run main.go
-
 func genShortUUID() {
 
 	shortuuid.New()
